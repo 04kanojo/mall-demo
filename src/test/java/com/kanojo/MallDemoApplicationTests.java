@@ -17,5 +17,6 @@ class MallDemoApplicationTests {
         int y = 8;
         int i = x | y;
         System.out.println(i);
+        System.out.println();
     }
 }
