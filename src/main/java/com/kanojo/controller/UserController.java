@@ -61,10 +61,12 @@ public class UserController {
     }
 
     @PostMapping("/upload")
-    public Result upload(MultipartFile file) throws IOException {
-        String type = file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf("."));
-        String path = "D:\\Temp\\" + file.getName() + type;
-        file.transferTo(new File(path));
+    public Result upload(@RequestParam("file") MultipartFile multipartFile) throws IOException {
+        //获取文件名字(有后缀名)
+        String fileName = multipartFile.getOriginalFilename();
+        multipartFile.transferTo(new File("D:/Temp/" + fileName));
+        //返回的映射路径
+        String path = "/picture/" + fileName;
         return new Result(666, path, "fuck");
     }
 }

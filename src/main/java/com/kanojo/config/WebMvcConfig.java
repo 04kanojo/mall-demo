@@ -23,6 +23,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
     @Autowired
     private TokenToUserArgumentResolver tokenToUserArgumentResolver;
 
+    //配置拦截器(用自定义的拦截器)
     @Override
     public void addArgumentResolvers(List<HandlerMethodArgumentResolver> resolvers) {
         resolvers.add(tokenToUserArgumentResolver);
@@ -30,9 +31,10 @@ public class WebMvcConfig implements WebMvcConfigurer {
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        /* 本地文件上传路径 */
-        registry.addResourceHandler("/icon" + "/**")
-                .addResourceLocations("file:" + "D:/Temp/" + "/");
+        //访问路径
+        registry.addResourceHandler("/picture/**")
+                //映射路径
+                .addResourceLocations("file:" + "D:\\Temp" + "/");
     }
 
     /*
