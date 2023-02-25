@@ -35,9 +35,6 @@ public class WebMvcConfig implements WebMvcConfigurer {
         registry.addResourceHandler("/picture/**")
                 //映射路径
                 .addResourceLocations("file:" + "D:\\Temp" + "/");
-
-
-
     }
 
     /*
