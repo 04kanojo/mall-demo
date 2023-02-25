@@ -13,10 +13,6 @@ class MallDemoApplicationTests {
 
     @Test
     void contextLoads() {
-        int x = 5;
-        int y = 8;
-        int i = x | y;
-        System.out.println(i);
-        System.out.println();
+
     }
 }
