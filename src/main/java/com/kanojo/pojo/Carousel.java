@@ -8,5 +8,6 @@ public class Carousel {
     @TableId
     private Long carouselId;
 
+
     private String url;
 }
