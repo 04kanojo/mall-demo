@@ -100,4 +100,12 @@ public class UserServiceImpl implements UserService {
         user.setPassword(DigestUtils.md5Hex(password));
         return userMapper.insert(user) > 0;
     }
+
+    @Override
+    public boolean upload(String path, Long userId) {
+        LambdaUpdateWrapper<User> luw = new LambdaUpdateWrapper<>();
+        luw.eq(User::getUserId, userId).set(User::getAvatar, path);
+        userMapper.update(null, luw);
+        return false;
+    }
 }

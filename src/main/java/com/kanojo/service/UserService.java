@@ -18,4 +18,6 @@ public interface UserService {
     boolean updateCollectionStatus(Long userCollectionId);
 
     boolean register(User user);
+
+    boolean upload(String path,Long userId);
 }

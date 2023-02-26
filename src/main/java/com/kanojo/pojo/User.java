@@ -25,4 +25,6 @@ public class User implements Serializable {
     private Integer isDeleted;
 
     private String type;
+
+    private String avatar;
 }
