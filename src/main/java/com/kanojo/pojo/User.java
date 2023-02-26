@@ -27,4 +27,8 @@ public class User implements Serializable {
     private String type;
 
     private String avatar;
+
+    private Integer vip;
+
+    private Integer status;
 }

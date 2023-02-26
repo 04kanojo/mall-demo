@@ -108,4 +108,32 @@ public class UserServiceImpl implements UserService {
         userMapper.update(null, luw);
         return false;
     }
+
+    @Override
+    public List<User> getVip() {
+        LambdaQueryWrapper<User> lqw = new LambdaQueryWrapper<>();
+        lqw.eq(User::getVip, 1);
+        return userMapper.selectList(lqw);
+    }
+
+    @Override
+    public boolean resetPassword(Long userId) {
+        LambdaUpdateWrapper<User> luw = new LambdaUpdateWrapper<>();
+        luw.eq(User::getUserId, userId).set(User::getPassword, DigestUtils.md5Hex(123456 + "woshidashabi"));
+        return userMapper.update(null, luw) > 0;
+    }
+
+    @Override
+    public List<User> getAllUser() {
+        LambdaQueryWrapper<User> lqw = new LambdaQueryWrapper<>();
+        lqw.eq(User::getType, "user");
+        return userMapper.selectList(lqw);
+    }
+
+    @Override
+    public boolean logout(Long userId) {
+        LambdaUpdateWrapper<User> luw = new LambdaUpdateWrapper<>();
+        luw.eq(User::getUserId, userId).set(User::getStatus, 0);
+        return userMapper.update(null, luw) > 0;
+    }
 }

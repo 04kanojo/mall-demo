@@ -3,6 +3,7 @@ package com.kanojo.service;
 
 import com.kanojo.controller.param.LoginParam;
 import com.kanojo.controller.vo.CollectionVO;
+import com.kanojo.pojo.Goods;
 import com.kanojo.pojo.User;
 import com.kanojo.pojo.UserCollection;
 
@@ -20,4 +21,12 @@ public interface UserService {
     boolean register(User user);
 
     boolean upload(String path,Long userId);
+
+    List<User> getVip();
+
+    boolean resetPassword(Long userId);
+
+    List<User> getAllUser();
+
+    boolean logout(Long userId);
 }

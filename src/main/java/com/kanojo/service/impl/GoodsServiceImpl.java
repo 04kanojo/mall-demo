@@ -51,4 +51,14 @@ public class GoodsServiceImpl implements GoodsService {
                 .between(minPrice != null || maxPrice != null, Goods::getGoodsPrice, minPrice, maxPrice);
         return goodsMapper.selectList(lqw);
     }
+
+    @Override
+    public boolean deleteGoods(Long goodsId) {
+        return goodsMapper.deleteById(goodsId) > 0;
+    }
+
+    @Override
+    public boolean add(Goods goods) {
+        return goodsMapper.insert(goods) > 0;
+    }
 }

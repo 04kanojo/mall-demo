@@ -15,4 +15,8 @@ public interface GoodsService {
     Goods getById(Long goodsId);
 
     List<Goods> conditionQuery(ConditionParam conditionParam);
+
+    boolean deleteGoods(Long goodsId);
+
+    boolean add(Goods goods);
 }
