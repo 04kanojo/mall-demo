@@ -50,4 +50,10 @@ public class GoodsController {
         boolean flag = goodsService.add(goods);
         return new Result(flag ? 200 : 666, flag ? "添加成功" : "添加失败");
     }
+
+    @PutMapping
+    private Result update(@TokenToUser("admin") User user, @RequestBody Goods goods) {
+        boolean flag = goodsService.update(goods);
+        return new Result(flag ? 200 : 666, flag ? "更改成功" : "更改失败");
+    }
 }

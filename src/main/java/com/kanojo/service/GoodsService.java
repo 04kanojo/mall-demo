@@ -19,4 +19,6 @@ public interface GoodsService {
     boolean deleteGoods(Long goodsId);
 
     boolean add(Goods goods);
+
+    boolean update(Goods goods);
 }

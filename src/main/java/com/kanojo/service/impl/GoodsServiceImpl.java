@@ -1,6 +1,7 @@
 package com.kanojo.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.kanojo.controller.param.ConditionParam;
@@ -60,5 +61,10 @@ public class GoodsServiceImpl implements GoodsService {
     @Override
     public boolean add(Goods goods) {
         return goodsMapper.insert(goods) > 0;
+    }
+
+    @Override
+    public boolean update(Goods goods) {
+        return goodsMapper.updateById(goods) > 0;
     }
 }
