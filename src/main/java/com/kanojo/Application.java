@@ -14,7 +14,6 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 //开启方法缓存(必须和上面配合使用)
 @EnableMethodCache(basePackages = "com.kanojo")
 public class Application {
-
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);
     }
