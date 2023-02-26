@@ -41,10 +41,10 @@ public class TokenToUserArgumentResolver implements HandlerMethodArgumentResolve
         TokenToUser parameterAnnotation = parameter.getParameterAnnotation(TokenToUser.class);
         String[] types = parameterAnnotation.value();
         for (String type : types) {
-            if (!type.equals(user.getType())) {
-                throw new MyException(666, "权限不足");
+            if (type.equals(user.getType())) {
+                return user;
             }
         }
-        return user;
+        throw new MyException(666, "权限不足");
     }
 }

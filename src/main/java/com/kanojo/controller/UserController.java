@@ -61,7 +61,7 @@ public class UserController {
     }
 
     @PostMapping("/upload")
-    public Result upload(@TokenToUser User user, @RequestParam("file") MultipartFile multipartFile) throws IOException {
+    public Result upload(@TokenToUser({"user","admin"}) User user, @RequestParam("file") MultipartFile multipartFile) throws IOException {
         //获取文件名字(有后缀名)
         String fileName = multipartFile.getOriginalFilename();
         multipartFile.transferTo(new File("D:/Temp/" + fileName));
