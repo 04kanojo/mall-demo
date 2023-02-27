@@ -18,6 +18,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.Field;
 import java.util.List;
+import java.util.Locale;
+import java.util.UUID;
 
 @Slf4j
 @RestController
@@ -61,13 +63,20 @@ public class UserController {
     }
 
     @PostMapping("/upload")
-    public Result upload(@TokenToUser({"user","admin"}) User user, @RequestParam("file") MultipartFile multipartFile) throws IOException {
+    public Result upload(@TokenToUser({"user", "admin"}) User user, @RequestParam("file") MultipartFile multipartFile) throws IOException {
         //获取文件名字(有后缀名)
-        String fileName = multipartFile.getOriginalFilename();
+        String fileSuffix = multipartFile.getOriginalFilename().substring(multipartFile.getOriginalFilename().lastIndexOf("."));
+        String fileName =
+                UUID.randomUUID()
+                        .toString()
+                        .replace("-", "")
+                        .toLowerCase(Locale.ROOT) +
+                        fileSuffix;
         multipartFile.transferTo(new File("D:/Temp/" + fileName));
+
         //返回的映射路径
         String path = "/picture/" + fileName;
         boolean flag = userService.upload(path, user.getUserId());
-        return new Result(666, path, "fuck");
+        return new Result(flag ? 200 : 666, path, "fuck");
     }
 }
