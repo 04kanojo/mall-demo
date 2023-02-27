@@ -18,4 +18,23 @@ public class CarouseServiceImpl implements CarouselService {
     public List<Carousel> get() {
         return carouselsMapper.selectList(null);
     }
+
+    @Override
+    public boolean add(Carousel carousel) {
+        return carouselsMapper.insert(carousel) > 0;
+    }
+
+    @Override
+    public boolean delete(Long carouselId) {
+        return carouselsMapper.deleteById(carouselId) > 0;
+    }
+
+    @Override
+    public boolean updateShunxu(List<Carousel> carousels) {
+        carouselsMapper.delete(null);
+        for (Carousel carousel : carousels) {
+            carouselsMapper.insert(carousel);
+        }
+        return true;
+    }
 }

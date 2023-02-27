@@ -15,6 +15,7 @@ import com.kanojo.service.GoodsService;
 import com.kanojo.service.UserService;
 import com.kanojo.util.tokenUtil;
 import org.apache.commons.codec.digest.DigestUtils;
+import org.apache.tomcat.util.security.MD5Encoder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -140,5 +141,17 @@ public class UserServiceImpl implements UserService {
     @Override
     public boolean delete(Long userId) {
         return userMapper.deleteById(userId) > 0;
+    }
+
+    @Override
+    public boolean update(String token, Long userId, User user) {
+        String password = user.getPassword();
+        user.setPassword(DigestUtils.md5Hex(password + "woshidashabi"));
+        user.setType("user");
+        user.setUserId(userId);
+        userMapper.updateById(user);
+        User user1 = userMapper.selectById(userId);
+        tokenCache.put(token, user1);
+        return true;
     }
 }

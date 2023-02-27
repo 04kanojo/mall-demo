@@ -52,27 +52,29 @@ public class CartServiceImpl implements CartService {
         lqw.eq(Cart::getUserId, userId);
         List<Cart> carts = cartMapper.selectList(lqw);
         List<CartVO> list = new ArrayList<>();
-        for (Cart cart : carts) {
-            CartVO cartVO = new CartVO();
-            //获取购物车里面的数量单价和id
-            Long cartId = cart.getCartId();
-            Integer goodsNum = cart.getGoodsNum();
-            //通过goodsId获取其余信息
-            Long goodsId = cart.getGoodsId();
-            Goods goods = goodsService.getById(goodsId);
-            String goodsInfo = goods.getGoodsInfo();
-            String goodsImage = goods.getGoodsImage();
-            String goodsName = goods.getGoodsName();
-            Double goodsPrice = goods.getGoodsPrice();
+        if (carts.size() != 0) {
+            for (Cart cart : carts) {
+                CartVO cartVO = new CartVO();
+                //获取购物车里面的数量单价和id
+                Long cartId = cart.getCartId();
+                Integer goodsNum = cart.getGoodsNum();
+                //通过goodsId获取其余信息
+                Long goodsId = cart.getGoodsId();
+                Goods goods = goodsService.getById(goodsId);
+                String goodsInfo = goods.getGoodsInfo();
+                String goodsImage = goods.getGoodsImage();
+                String goodsName = goods.getGoodsName();
+                Double goodsPrice = goods.getGoodsPrice();
 
-            cartVO.setCartId(cartId);
-            cartVO.setGoodsNum(goodsNum);
-            cartVO.setGoodsPrice(goodsPrice);
-            cartVO.setGoodsName(goodsName);
-            cartVO.setGoodsInfo(goodsInfo);
-            cartVO.setGoodsImage(goodsImage);
+                cartVO.setCartId(cartId);
+                cartVO.setGoodsNum(goodsNum);
+                cartVO.setGoodsPrice(goodsPrice);
+                cartVO.setGoodsName(goodsName);
+                cartVO.setGoodsInfo(goodsInfo);
+                cartVO.setGoodsImage(goodsImage);
 
-            list.add(cartVO);
+                list.add(cartVO);
+            }
         }
         return list;
     }

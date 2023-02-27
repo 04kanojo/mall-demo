@@ -20,7 +20,7 @@ public interface UserService {
 
     boolean register(User user);
 
-    boolean upload(String path,Long userId);
+    boolean upload(String path, Long userId);
 
     List<User> getVip();
 
@@ -31,4 +31,6 @@ public interface UserService {
     boolean logout(Long userId);
 
     boolean delete(Long userId);
+
+    boolean update(String token, Long userId, User user);
 }

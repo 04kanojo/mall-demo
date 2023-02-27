@@ -5,18 +5,17 @@ import com.kanojo.controller.param.LoginParam;
 import com.kanojo.controller.vo.CollectionVO;
 import com.kanojo.pojo.User;
 import com.kanojo.pojo.UserCollection;
+import com.kanojo.service.QianBaoService;
 import com.kanojo.service.UserService;
 import com.kanojo.util.Result;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
-import java.lang.reflect.Field;
 import java.util.List;
 import java.util.Locale;
 import java.util.UUID;
@@ -25,6 +24,9 @@ import java.util.UUID;
 @RestController
 @RequestMapping("/user")
 public class UserController {
+
+    @Autowired
+    private QianBaoService qianBaoService;
 
     @Autowired
     private UserService userService;
@@ -59,6 +61,7 @@ public class UserController {
     @PostMapping("/register")
     public Result register(@RequestBody User user) {
         boolean flag = userService.register(user);
+        qianBaoService.add(user.getUserId());
         return new Result(flag ? 200 : 666, flag ? "注册成功" : "注册失败");
     }
 
@@ -73,10 +76,16 @@ public class UserController {
                         .toLowerCase(Locale.ROOT) +
                         fileSuffix;
         multipartFile.transferTo(new File("D:/Temp/" + fileName));
-
         //返回的映射路径
         String path = "/picture/" + fileName;
         boolean flag = userService.upload(path, user.getUserId());
         return new Result(flag ? 200 : 666, path, "fuck");
+    }
+
+    @PutMapping("/update")
+    private Result update(HttpServletRequest request, @TokenToUser User user, @RequestBody User user1) {
+        String token = request.getHeader("token");
+        boolean flag = userService.update(token, user.getUserId(), user1);
+        return new Result(flag ? 200 : 666, flag ? "" : "");
     }
 }

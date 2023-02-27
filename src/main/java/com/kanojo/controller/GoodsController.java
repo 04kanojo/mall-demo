@@ -6,8 +6,10 @@ import com.kanojo.controller.param.PageParam;
 import com.kanojo.pojo.Goods;
 import com.kanojo.pojo.Logs;
 import com.kanojo.pojo.User;
+import com.kanojo.pojo.Zuji;
 import com.kanojo.service.GoodsService;
 import com.kanojo.service.LogsService;
+import com.kanojo.service.ZujiService;
 import com.kanojo.util.Result;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +28,9 @@ public class GoodsController {
     @Autowired
     private LogsService logsService;
 
+    @Autowired
+    private ZujiService zujiService;
+
     @GetMapping("/getGoods")
     public Result getGoods(HttpServletRequest request, PageParam page) {
         List<Goods> list = goodsService.getGoods(page);
@@ -38,8 +43,11 @@ public class GoodsController {
     }
 
     @GetMapping("/getById/{goodsId}")
-    public Result getById(@PathVariable Long goodsId) {
+    public Result getById(@TokenToUser({"admin", "user"}) User user, @PathVariable Long goodsId) {
         Goods goods = goodsService.getById(goodsId);
+        Long userId = user.getUserId();
+        Zuji zuji = new Zuji(userId, goodsId);
+        zujiService.add(zuji);
         boolean flag = goods != null;
         return new Result(flag ? 200 : 666, goods, flag ? "查询成功" : "暂无数据");
     }
@@ -67,5 +75,19 @@ public class GoodsController {
     private Result update(@TokenToUser("admin") User user, @RequestBody Goods goods) {
         boolean flag = goodsService.update(goods);
         return new Result(flag ? 200 : 666, flag ? "更改成功" : "更改失败");
+    }
+
+    @GetMapping("/orderByPrice")
+    private Result orderByPrice() {
+        List<Goods> list = goodsService.orderByPrice();
+        boolean flag = list.size() != 0;
+        return new Result(flag ? 200 : 666, list, flag ? "获取成功" : "获取失败");
+    }
+
+    @GetMapping("/orderByNew")
+    private Result orderByNew() {
+        List<Goods> list = goodsService.orderByNew();
+        boolean flag = list.size() != 0;
+        return new Result(flag ? 200 : 666, list, flag ? "获取成功" : "获取失败");
     }
 }

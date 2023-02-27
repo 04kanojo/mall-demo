@@ -7,7 +7,5 @@ import lombok.Data;
 public class Carousel {
     @TableId
     private Long carouselId;
-
-
     private String url;
 }

@@ -21,4 +21,9 @@ public interface GoodsService {
     boolean add(Goods goods);
 
     boolean update(Goods goods);
+
+    List<Goods> orderByPrice();
+
+    List<Goods> orderByNew();
+
 }

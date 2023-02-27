@@ -32,7 +32,7 @@ public class CartController {
     }
 
     @GetMapping
-    public Result getCart(@TokenToUser User user) {
+    public Result getCart(@TokenToUser({"user","admin"}) User user) {
         List<CartVO> list = cartService.getCart(user.getUserId());
         boolean flag = list.size() != 0;
         return new Result(flag ? 200 : 666, list, flag ? "获取成功" : "暂无数据");

@@ -67,4 +67,19 @@ public class GoodsServiceImpl implements GoodsService {
     public boolean update(Goods goods) {
         return goodsMapper.updateById(goods) > 0;
     }
+
+    @Override
+    public List<Goods> orderByPrice() {
+        LambdaQueryWrapper<Goods> lqw = new LambdaQueryWrapper<>();
+        lqw.orderByAsc(Goods::getGoodsPrice);
+        return goodsMapper.selectList(lqw);
+    }
+
+    @Override
+    public List<Goods> orderByNew() {
+        LambdaQueryWrapper<Goods> lqw = new LambdaQueryWrapper<>();
+        lqw.eq(Goods::getIsNew, 1);
+        lqw.orderByAsc(Goods::getGoodsPrice);
+        return goodsMapper.selectList(lqw);
+    }
 }

@@ -21,4 +21,6 @@ public class Goods {
     private Integer isDeleted;
 
     private Double goodsPrice;
+
+    private Integer isNew;
 }
