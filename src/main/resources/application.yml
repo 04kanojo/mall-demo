@@ -72,7 +72,7 @@ jetcache:
 logging:
 
   level:
-    root: warn
+    root: info
   file:
     name: D:/Temp/log.log
 

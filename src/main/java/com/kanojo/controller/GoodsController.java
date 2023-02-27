@@ -4,13 +4,16 @@ import com.kanojo.config.annotation.TokenToUser;
 import com.kanojo.controller.param.ConditionParam;
 import com.kanojo.controller.param.PageParam;
 import com.kanojo.pojo.Goods;
+import com.kanojo.pojo.Logs;
 import com.kanojo.pojo.User;
 import com.kanojo.service.GoodsService;
+import com.kanojo.service.LogsService;
 import com.kanojo.util.Result;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @RestController
@@ -20,10 +23,16 @@ public class GoodsController {
     @Autowired
     private GoodsService goodsService;
 
+    @Autowired
+    private LogsService logsService;
+
     @GetMapping("/getGoods")
-    public Result getGoods(PageParam page) {
+    public Result getGoods(HttpServletRequest request, PageParam page) {
         List<Goods> list = goodsService.getGoods(page);
-        log.warn(list.toString());
+        String addr = request.getRemoteAddr();
+        String browser = request.getHeader("user-agent");
+        log.info(addr + ":" + browser);
+        logsService.add(new Logs(addr, browser));
         boolean flag = list != null;
         return new Result(flag ? 200 : 666, list, flag ? "查询成功" : "暂无数据");
     }
