@@ -6,10 +6,7 @@ import com.kanojo.service.UserService;
 import com.kanojo.util.Result;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -44,5 +41,11 @@ public class AdminController {
     private Result logout(@TokenToUser("admin") User user, @PathVariable Long userId) {
         boolean flag = userService.logout(userId);
         return new Result(flag ? 200 : 666, flag ? "注销成功" : "注销失败");
+    }
+
+    @DeleteMapping("/{userId}")
+    private Result delete(@TokenToUser("admin") User user, @PathVariable Long userId) {
+        boolean flag = userService.delete(userId);
+        return new Result(flag ? 200 : 666, flag ? "ok" : "err");
     }
 }

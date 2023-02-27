@@ -29,4 +29,6 @@ public interface UserService {
     List<User> getAllUser();
 
     boolean logout(Long userId);
+
+    boolean delete(Long userId);
 }

@@ -7,12 +7,14 @@ import com.kanojo.pojo.Goods;
 import com.kanojo.pojo.User;
 import com.kanojo.service.GoodsService;
 import com.kanojo.util.Result;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
+@Slf4j
 @RequestMapping("/goods")
 public class GoodsController {
     @Autowired
@@ -21,6 +23,7 @@ public class GoodsController {
     @GetMapping("/getGoods")
     public Result getGoods(PageParam page) {
         List<Goods> list = goodsService.getGoods(page);
+        log.warn(list.toString());
         boolean flag = list != null;
         return new Result(flag ? 200 : 666, list, flag ? "查询成功" : "暂无数据");
     }

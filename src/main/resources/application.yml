@@ -67,3 +67,20 @@ jetcache:
       poolConfig:
         #最大连接数
         maxTotal: 50
+
+
+logging:
+
+  level:
+    root: warn
+  file:
+    name: D:/Temp/log.log
+
+  logback:
+    rollingpolicy:
+      max-file-size: 20MB
+      # %d日期
+      file-name-pattern: log.%d{yyyy-MM-dd}.%i.log
+
+
+

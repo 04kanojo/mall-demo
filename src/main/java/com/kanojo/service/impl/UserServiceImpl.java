@@ -136,4 +136,9 @@ public class UserServiceImpl implements UserService {
         luw.eq(User::getUserId, userId).set(User::getStatus, 0);
         return userMapper.update(null, luw) > 0;
     }
+
+    @Override
+    public boolean delete(Long userId) {
+        return userMapper.deleteById(userId) > 0;
+    }
 }
