@@ -22,11 +22,12 @@ public class GoodsServiceImpl implements GoodsService {
 
     @Override
     public List<Goods> getGoods(PageParam pageParam) {
-        int start = pageParam.getPage() == null ? 0 : pageParam.getPage();
-        int size = pageParam.getLimit() == null ? 10 : pageParam.getPage();
-        IPage<Goods> page = new Page<>(start, size);
-        goodsMapper.selectPage(page, null);
-        return page.getRecords();
+        return goodsMapper.selectList(null);
+//        int start = pageParam.getPage() == null ? 0 : pageParam.getPage();
+//        int size = pageParam.getLimit() == null ? 10 : pageParam.getPage();
+//        IPage<Goods> page = new Page<>(start, size);
+//        goodsMapper.selectPage(page, null);
+//        return page.getRecords();
     }
 
     @Override

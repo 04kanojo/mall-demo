@@ -35,9 +35,9 @@ public class OrderDetailServiceImpl implements OrderDetailService {
     }
 
     @Override
-    public List<OrderDetail> getOrderDetail(Long userId) {
+    public List<OrderDetail> getOrderDetail(Long orderId) {
         LambdaQueryWrapper<OrderDetail> lqw = new LambdaQueryWrapper<>();
-        lqw.eq(OrderDetail::getUserId, userId);
+        lqw.eq(OrderDetail::getOrderId, orderId);
         return orderDetailMapper.selectList(lqw);
     }
 }

@@ -54,8 +54,8 @@ public class OrderServiceImpl implements OrderService {
                 orderDetailMapper.insert(orderDetail);
                 result += orderDetail.getBuyNum() * orderDetail.getBuyPrice();
                 updateTotalPrice(order.getOrderId(), result);
-                return order.getOrderId();
             }
+            return order.getOrderId();
         }
         return null;
     }

@@ -10,6 +10,7 @@ import com.kanojo.service.OrderService;
 import com.kanojo.util.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 
 @RestController
@@ -51,9 +52,9 @@ public class OrderController {
         return new Result(flag ? 200 : 666, flag ? "添加成功" : "添加失败");
     }
 
-    @GetMapping("/getOrderDetail")
-    private Result getOrderDetail(@TokenToUser User user) {
-        List<OrderDetail> list = orderDetailService.getOrderDetail(user.getUserId());
+    @GetMapping("/getOrderDetail/{orderId}")
+    private Result getOrderDetail(@TokenToUser User user, @PathVariable Long orderId) {
+        List<OrderDetail> list = orderDetailService.getOrderDetail(orderId);
         boolean flag = list.size() != 0;
         return new Result(flag ? 200 : 666, list, flag ? "获取成功" : "获取失败");
     }
