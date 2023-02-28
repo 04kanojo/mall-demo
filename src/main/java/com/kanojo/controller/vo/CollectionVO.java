@@ -16,5 +16,5 @@ public class CollectionVO {
 
     private String goodsImage;
 
-    private String GoodsNum;
+    private Integer GoodsNum;
 }

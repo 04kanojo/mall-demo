@@ -67,6 +67,7 @@ public class CartServiceImpl implements CartService {
                 Double goodsPrice = goods.getGoodsPrice();
 
                 cartVO.setCartId(cartId);
+                cartVO.setGoodsId(goods.getGoodsId());
                 cartVO.setGoodsNum(goodsNum);
                 cartVO.setGoodsPrice(goodsPrice);
                 cartVO.setGoodsName(goodsName);

@@ -15,7 +15,7 @@ public class Goods {
 
     private String goodsImage;
 
-    private String GoodsNum;
+    private Integer GoodsNum;
 
     @TableLogic
     private Integer isDeleted;

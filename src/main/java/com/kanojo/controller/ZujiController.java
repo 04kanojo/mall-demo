@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Collections;
 import java.util.List;
 
 @RestController
@@ -25,6 +26,7 @@ public class ZujiController {
     private Result get(@TokenToUser({"admin", "user"}) User user) {
         List<Goods> list = zujiService.get(user.getUserId());
         boolean flag = list.size() != 0;
+        Collections.reverse(list);
         return new Result(flag ? 200 : 666, list, flag ? "" : "");
     }
 

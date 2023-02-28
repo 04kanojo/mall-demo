@@ -76,7 +76,7 @@ public class UserServiceImpl implements UserService {
         //通过商品id查询商品的细节
         List<CollectionVO> goodsList = new ArrayList<>();
         for (UserCollection userCollection : userCollections) {
-            Goods goods = goodsService.getByUserId(userCollection.getGoodsId());
+            Goods goods = goodsService.getById(userCollection.getGoodsId());
             CollectionVO vo = new CollectionVO(userCollection.getCollectionId(),
                     goods.getGoodsId(),
                     goods.getGoodsName(),

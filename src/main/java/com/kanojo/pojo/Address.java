@@ -25,4 +25,6 @@ public class Address {
 
     @TableLogic
     private Integer isDeleted;
+
+    private Boolean isDefault;
 }

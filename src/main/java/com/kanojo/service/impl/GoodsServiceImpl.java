@@ -30,11 +30,6 @@ public class GoodsServiceImpl implements GoodsService {
     }
 
     @Override
-    public Goods getByUserId(Long goodsId) {
-        return goodsMapper.selectById(goodsId);
-    }
-
-    @Override
     public Goods getById(Long goodsId) {
         return goodsMapper.selectById(goodsId);
     }

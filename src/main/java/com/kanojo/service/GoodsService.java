@@ -10,8 +10,6 @@ public interface GoodsService {
 
     List<Goods> getGoods(PageParam page);
 
-    Goods getByUserId(Long goodsId);
-
     Goods getById(Long goodsId);
 
     List<Goods> conditionQuery(ConditionParam conditionParam);

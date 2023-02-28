@@ -6,6 +6,8 @@ import lombok.Data;
 public class CartVO {
     private Long cartId;
 
+    private Long goodsId;
+
     private String goodsName;
 
     private String goodsInfo;
