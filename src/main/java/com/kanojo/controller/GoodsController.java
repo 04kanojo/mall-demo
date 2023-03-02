@@ -3,6 +3,7 @@ package com.kanojo.controller;
 import com.kanojo.config.annotation.TokenToUser;
 import com.kanojo.controller.param.ConditionParam;
 import com.kanojo.controller.param.PageParam;
+import com.kanojo.controller.param.ZheKouParam;
 import com.kanojo.pojo.Goods;
 import com.kanojo.pojo.Logs;
 import com.kanojo.pojo.User;
@@ -89,5 +90,25 @@ public class GoodsController {
         List<Goods> list = goodsService.orderByNew();
         boolean flag = list.size() != 0;
         return new Result(flag ? 200 : 666, list, flag ? "获取成功" : "获取失败");
+    }
+
+    @PostMapping("/LanGet")
+    private Result LanGet(@RequestBody PageParam param) {
+        List<Goods> list = goodsService.LanGet(param);
+        boolean flag = list.size() != 0;
+        return new Result(flag ? 200 : 666, list, flag ? "" : "");
+    }
+
+    @PutMapping("/updateGoodsZheKou")
+    private Result updateGoodsZheKou(@TokenToUser("admin") User user, @RequestBody ZheKouParam zheKouParam) {
+        boolean flag = goodsService.updateGoodsZheKou(zheKouParam);
+        return new Result(flag ? 200 : 666, "");
+    }
+
+    @GetMapping("/getFlGoods/{flId}")
+    private Result getFlGoods(@PathVariable Long flId) {
+        List<Goods> list = goodsService.getFlGoods(flId);
+        boolean flag = list.size() != 0;
+        return new Result(flag ? 200 : 666, list, flag ? "" : "");
     }
 }

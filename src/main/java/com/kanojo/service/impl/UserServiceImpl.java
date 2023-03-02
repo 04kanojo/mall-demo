@@ -15,11 +15,11 @@ import com.kanojo.service.GoodsService;
 import com.kanojo.service.UserService;
 import com.kanojo.util.tokenUtil;
 import org.apache.commons.codec.digest.DigestUtils;
-import org.apache.tomcat.util.security.MD5Encoder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 @Service
@@ -153,5 +153,17 @@ public class UserServiceImpl implements UserService {
         User user1 = userMapper.selectById(userId);
         tokenCache.put(token, user1);
         return true;
+    }
+
+    @Override
+    public boolean uploadAva(String path, Long userId, String token) {
+        LambdaUpdateWrapper<User> luw = new LambdaUpdateWrapper<>();
+        luw.eq(User::getUserId, userId).set(User::getAvatar, path);
+        boolean flag = userMapper.update(null, luw) > 0;
+        if (flag) {
+            User user = userMapper.selectById(userId);
+            tokenCache.put(token, user);
+        }
+        return flag;
     }
 }

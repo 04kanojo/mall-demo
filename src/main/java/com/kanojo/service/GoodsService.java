@@ -2,6 +2,7 @@ package com.kanojo.service;
 
 import com.kanojo.controller.param.ConditionParam;
 import com.kanojo.controller.param.PageParam;
+import com.kanojo.controller.param.ZheKouParam;
 import com.kanojo.pojo.Goods;
 
 import java.util.List;
@@ -24,4 +25,9 @@ public interface GoodsService {
 
     List<Goods> orderByNew();
 
+    List<Goods> LanGet(PageParam param);
+
+    boolean updateGoodsZheKou(ZheKouParam zheKouParam);
+
+    List<Goods> getFlGoods(Long flId);
 }

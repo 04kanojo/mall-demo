@@ -75,7 +75,8 @@ public class UserController {
                         .replace("-", "")
                         .toLowerCase(Locale.ROOT) +
                         fileSuffix;
-        multipartFile.transferTo(new File("D:/Temp/" + fileName));
+//        multipartFile.transferTo(new File("/tmp/picture" + fileName));
+        multipartFile.transferTo(new File("D:\\Temp/" + fileName));
         //返回的映射路径
         String path = "/picture/" + fileName;
         boolean flag = userService.upload(path, user.getUserId());
@@ -86,6 +87,30 @@ public class UserController {
     private Result update(HttpServletRequest request, @TokenToUser User user, @RequestBody User user1) {
         String token = request.getHeader("token");
         boolean flag = userService.update(token, user.getUserId(), user1);
+        return new Result(flag ? 200 : 666, flag ? "" : "");
+    }
+
+    @GetMapping("/getUser")
+    private Result getUser(@TokenToUser User user) {
+        return new Result(200, user, "");
+    }
+
+    @PostMapping("/uploadAva")
+    private Result uploadAva(HttpServletRequest request, @TokenToUser User user, @RequestParam("file") MultipartFile multipartFile) throws IOException {
+        String token = request.getHeader("token");
+        //获取文件名字(有后缀名)
+        String fileSuffix = multipartFile.getOriginalFilename().substring(multipartFile.getOriginalFilename().lastIndexOf("."));
+        String fileName =
+                UUID.randomUUID()
+                        .toString()
+                        .replace("-", "")
+                        .toLowerCase(Locale.ROOT) +
+                        fileSuffix;
+//        multipartFile.transferTo(new File("/tmp/picture" + fileName));
+        multipartFile.transferTo(new File("D:\\Temp/" + fileName));
+        //返回的映射路径
+        String path = "/picture/" + fileName;
+        boolean flag = userService.uploadAva(path, user.getUserId(), token);
         return new Result(flag ? 200 : 666, flag ? "" : "");
     }
 }

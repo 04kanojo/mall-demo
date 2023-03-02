@@ -17,7 +17,7 @@ public class QianBaoController {
     @Autowired
     private QianBaoService qianBaoService;
 
-    @PostMapping()
+    @PostMapping
     private Result update(@TokenToUser({"user", "admin"}) User user, @RequestBody QianBaoParam qianBaoParam) {
         qianBaoParam.setUserId(user.getUserId());
         boolean flag = qianBaoService.update(qianBaoParam);

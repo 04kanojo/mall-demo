@@ -33,4 +33,6 @@ public interface UserService {
     boolean delete(Long userId);
 
     boolean update(String token, Long userId, User user);
+
+    boolean uploadAva(String path, Long userId, String token);
 }

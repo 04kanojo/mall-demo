@@ -31,10 +31,14 @@ public class WebMvcConfig implements WebMvcConfigurer {
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        //访问路径
+//        //访问路径
+//        registry.addResourceHandler("/picture/**")
+//                //映射路径
+//                .addResourceLocations("file:/tmp/picture/");
+//        访问路径
         registry.addResourceHandler("/picture/**")
                 //映射路径
-                .addResourceLocations("file:" + "D:\\Temp" + "/");
+                .addResourceLocations("file:D:\\Temp/");
     }
 
     /*

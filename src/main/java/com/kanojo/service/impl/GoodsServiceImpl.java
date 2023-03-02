@@ -6,12 +6,14 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.kanojo.controller.param.ConditionParam;
 import com.kanojo.controller.param.PageParam;
+import com.kanojo.controller.param.ZheKouParam;
 import com.kanojo.mapper.GoodsMapper;
 import com.kanojo.pojo.Goods;
 import com.kanojo.service.GoodsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -76,6 +78,34 @@ public class GoodsServiceImpl implements GoodsService {
         LambdaQueryWrapper<Goods> lqw = new LambdaQueryWrapper<>();
         lqw.eq(Goods::getIsNew, 1);
         lqw.orderByAsc(Goods::getGoodsPrice);
+        return goodsMapper.selectList(lqw);
+    }
+
+    @Override
+    public List<Goods> LanGet(PageParam param) {
+        IPage<Goods> page = new Page<>(param.getPage(), param.getLimit());
+        goodsMapper.selectPage(page, null);
+        return page.getRecords();
+    }
+
+    @Override
+    public boolean updateGoodsZheKou(ZheKouParam zheKouParam) {
+        Double zheKouLv = zheKouParam.getZheKouLv();
+        Long goodsId = zheKouParam.getGoodsId();
+        Date zheKouTimeStart = zheKouParam.getZheKouTimeStart();
+        Date zheKouTimeStop = zheKouParam.getZheKouTimeStop();
+        Goods goods = new Goods();
+        goods.setGoodsId(goodsId);
+        goods.setZheKouLv(zheKouLv);
+        goods.setZheKouTimeStart(zheKouTimeStart);
+        goods.setZheKouTimeStop(zheKouTimeStop);
+        return goodsMapper.updateById(goods) > 0;
+    }
+
+    @Override
+    public List<Goods> getFlGoods(Long flId) {
+        LambdaQueryWrapper<Goods> lqw = new LambdaQueryWrapper<>();
+        lqw.eq(Goods::getFlId, flId);
         return goodsMapper.selectList(lqw);
     }
 }
